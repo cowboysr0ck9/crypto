@@ -1,6 +1,8 @@
 import * as express from 'express';
 import * as fs from 'fs';
 import * as jwt from 'jsonwebtoken';
+import { Logger } from '../../utils/logger';
+import winston = require('winston');
 
 class RegisterController {
     public path = '/register';
@@ -14,19 +16,43 @@ class RegisterController {
         const { path, router, ...x } = this;
         router.get(`${path}`, x.register);
         router.post(`${path}/verify`, x.verify);
+        router.get(`${path}/returnlogs`, x.returnLogs);
     }
 
     // Creates JWT Token
+    // GET: /register
     register = async (req: express.Request, res: express.Response) => {
-        const token = jwt.sign({ id: 'test', role: 'analyst', department: 'Back Office' }, 'password');
+        const user = { id: 1, userName: 'test', role: 'analyst', department: 'Back Office' };
+        const token = jwt.sign(user, 'password');
+
+        const morgan = new Logger();
+        morgan.logger.log({
+            level: 'error',
+            message: `What time is the testing at? ${Date.now()}`,
+            token,
+            user
+        });
 
         res.json({ token });
     };
 
-    verify = (req: express.Request, res: express.Response) => {
+    // Verifies JWT
+    // POST: /register/verify
+    verify = async (req: express.Request, res: express.Response) => {
         const { ...x } = req.body;
         const isValid = jwt.verify(x.token, 'password');
+
         res.json({ isValid });
+    };
+
+    // Verifies JWT
+    // POST: /register/verify
+    returnLogs = async (req: express.Request, res: express.Response) => {
+        const test = await fs.readFile('../auth/LoginController.ts', (err, data) => {
+            console.log(err, data);
+        });
+
+        res.send(test);
     };
 }
 
