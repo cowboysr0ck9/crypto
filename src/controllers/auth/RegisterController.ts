@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
 import { Logger } from '../../utils/logger';
 import winston = require('winston');
@@ -47,12 +48,22 @@ class RegisterController {
 
     // Verifies JWT
     // POST: /register/verify
-    returnLogs = async (req: express.Request, res: express.Response) => {
+    returnLogs = async (req: express.Request, res: express.Response): Promise<any> => {
         const test = await fs.readFile('../auth/LoginController.ts', (err, data) => {
             console.log(err, data);
         });
 
-        res.send(test);
+        // const file = path.join(__dirname, '../../logs/test.txt');
+        const file = path.join(__dirname, '../../../errors.log');
+        fs.readFile(file, { encoding: 'utf-8' }, function(err, data) {
+            if (!err) {
+                console.log(data);
+            } else {
+                console.log(err);
+            }
+        });
+
+        res.sendFile(file);
     };
 }
 
