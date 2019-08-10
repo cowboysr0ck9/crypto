@@ -17,6 +17,8 @@ class MarketController {
         router.get(`${path}/cmcEdited`, x.cmcEdited);
     }
 
+    // Calls OpenMarketCap Developer API
+    // GET
     omc = async (req: express.Request, res: express.Response) => {
         try {
             const omc = new OpenMarketCapService();
@@ -27,6 +29,8 @@ class MarketController {
         }
     };
 
+    // Calls CoinMarketCap Developer API
+    // GET
     cmc = async (req: express.Request, res: express.Response) => {
         try {
             const cmc = new CoinMarketCapService();
@@ -37,6 +41,8 @@ class MarketController {
         }
     };
 
+    // Filtered KV API for CoinMarketCap
+    // GET
     cmcEdited = async (req: express.Request, res: express.Response) => {
         try {
             const cmc = new CoinMarketCapService();
@@ -51,7 +57,7 @@ class MarketController {
                 };
             };
 
-            const payload = [...tokens.data].map(query);
+            const payload = [...tokens.data].map(query).filter(x => x.price < 50);
 
             res.json(payload);
         } catch (error) {

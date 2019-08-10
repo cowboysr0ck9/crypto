@@ -41,15 +41,19 @@ class RegisterController {
     // POST: /register/verify
     verify = async (req: express.Request, res: express.Response) => {
         const { ...x } = req.body;
-        const isValid = jwt.verify(x.token, 'password');
+        try {
+            const isValid = jwt.verify(x.token, 'password');
 
-        res.json({ isValid });
+            res.json({ isValid });
+        } catch (error) {
+            res.json({ error: 'Invalid JWT' });
+        }
     };
 
     // Verifies JWT
     // POST: /register/verify
     returnLogs = async (req: express.Request, res: express.Response): Promise<any> => {
-        const file = path.join(__dirname, '../../logs/test.txt');
+        const file = path.join('./errors.log');
         res.download(file);
     };
 }
