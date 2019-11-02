@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import chalk from 'chalk';
+
 class App {
     public app: express.Application;
     public port: number;

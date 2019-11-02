@@ -3,7 +3,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
 import { Logger } from '../../utils/logger';
-import winston = require('winston');
 
 class RegisterController {
     public path = '/register';
@@ -43,7 +42,6 @@ class RegisterController {
         const { ...x } = req.body;
         try {
             const isValid = jwt.verify(x.token, 'password');
-
             res.json({ isValid });
         } catch (error) {
             res.json({ error: 'Invalid JWT' });
