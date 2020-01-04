@@ -2,9 +2,7 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as multer from 'multer';
 
-// Response Messages
-const UPLOAD_SUCCESS_MSG = 'Thanks, your file was uploaded.';
-const UPLOAD_FAILURE_MSG = 'Sorry, your file could not be uploaded.';
+import { UPLOAD_SUCCESS_MSG, UPLOAD_FAILURE_MSG } from './constants';
 
 class TaxUploaderController {
     public path = '/tax-uploader';
@@ -14,6 +12,7 @@ class TaxUploaderController {
         const { path, router } = this;
         const multerClient: any = multer({ dest: 'uploads/' });
 
+        // Available Routes
         router.post(`${path}/upload`, multerClient.single('file'), this.upload);
     }
 
