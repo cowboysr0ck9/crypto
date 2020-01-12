@@ -17,51 +17,46 @@ class MarketController {
         router.get(`${path}/cmcEdited`, x.cmcEdited);
     }
 
-    // Calls OpenMarketCap Developer API
-    // GET
     omc = async (req: express.Request, res: express.Response) => {
         try {
             const omc = new OpenMarketCapService();
-            const tokens = await omc.getTopTenTokens(10);
-            res.json(tokens);
+            const data = await omc.getTopTenTokens(10);
+            res.status(200).json({ success: true, data });
         } catch (error) {
-            throw new Error('OpenMarketCap');
+            res.status(400).json({ success: false, msg: 'Failed Open Market Cap' });
         }
     };
 
-    // Calls CoinMarketCap Developer API
-    // GET
     cmc = async (req: express.Request, res: express.Response) => {
         try {
             const cmc = new CoinMarketCapService();
-            const tokens = await cmc.getTopTenTokens(10, 'USD');
-            res.json(tokens);
+            const data = await cmc.getTopTenTokens(10, 'USD');
+            res.status(200).json({ success: true, data });
         } catch (error) {
-            throw new Error('CoinMarketCap');
+            res.status(400).json({ success: false, msg: 'Failed CMC API Call' });
         }
     };
 
-    // Filtered KV API for CoinMarketCap
-    // GET
     cmcEdited = async (req: express.Request, res: express.Response) => {
         try {
             const cmc = new CoinMarketCapService();
             const tokens = await cmc.getTopTenTokens(10, 'USD');
 
             const query = (x: any) => {
+                const { symbol, name, cmc_rank: rank, quote } = x;
                 return {
-                    symbol: x.symbol,
-                    name: x.name,
-                    rank: x.cmc_rank,
-                    price: x.quote.USD.price.toFixed(2) || null
+                    name,
+                    symbol,
+                    rank,
+                    price: quote.USD.price.toFixed(2) || null
                 };
             };
 
-            const payload = [...tokens.data].map(query).filter(x => x.price < 50);
+            const data = [...tokens.data].map(query);
 
-            res.json(payload);
+            res.status(200).json({ success: true, data });
         } catch (error) {
-            throw new Error('CoinMarketCap');
+            res.status(400).json({ success: false, msg: 'Failed CMC Top 10' });
         }
     };
 }
