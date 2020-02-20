@@ -3,7 +3,7 @@ import * as nodemailer from 'nodemailer';
 export async function main() {
     let testAccount = await nodemailer.createTestAccount();
 
-    const transporter = nodemailer.createTransport({
+    const mailService = nodemailer.createTransport({
         host: 'smtp.ethereal.email',
         port: 587,
         secure: false,
@@ -13,7 +13,7 @@ export async function main() {
         }
     });
 
-    const info = await transporter.sendMail({
+    const info = await mailService.sendMail({
         from: '"EadsGraphic" <eadsgraphics@gmail.com>', // sender address
         to: 'tyler.eads9@gmail.com', // list of receivers
         subject: 'Node Mail Test', // Subject line

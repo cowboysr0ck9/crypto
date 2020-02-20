@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as fs from 'fs';
 import * as multer from 'multer';
 import { Logger } from '../../utils/logger';
-import { UPLOAD_SUCCESS_MSG, UPLOAD_FAILURE_MSG } from './constants';
+import { UPLOAD_SUCCESS_MSG, UPLOAD_FAILURE_MSG } from './messages';
 
 class TaxUploaderController {
     public path = '/tax-uploader';
