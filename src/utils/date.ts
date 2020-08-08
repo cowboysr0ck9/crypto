@@ -1,4 +1,4 @@
 /**
- * @description ISO UTC Time to be used across entire application
+ * @description ISO UTC Time to be referenced across application
  */
-export const ISO_DATE = new Date().toISOString();
+export const ISO_TIME = new Date().toISOString();

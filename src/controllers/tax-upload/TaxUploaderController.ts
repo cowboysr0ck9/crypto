@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as fs from 'fs';
+import { readFile } from 'fs';
 import * as multer from 'multer';
 import { Logger } from '../../utils/logger';
 import { UPLOAD_SUCCESS_MSG, UPLOAD_FAILURE_MSG } from './messages';
@@ -17,7 +17,7 @@ class TaxUploaderController {
 
     upload = async (req: express.Request, res: express.Response) => {
         try {
-            fs.readFile(req.file.path, { encoding: 'utf8' }, (err, data) => {
+            readFile(req.file.path, { encoding: 'utf8' }, (err, data) => {
                 res.status(200).json({ success: true, data: UPLOAD_SUCCESS_MSG });
             });
         } catch (error) {
@@ -28,7 +28,7 @@ class TaxUploaderController {
                 route: req.route.path,
                 method: req.method,
                 message: UPLOAD_FAILURE_MSG,
-                body: JSON.stringify(req.body)
+                body: JSON.stringify(req.body),
             });
             res.status(400).json({ success: false, msg: UPLOAD_FAILURE_MSG });
         }
