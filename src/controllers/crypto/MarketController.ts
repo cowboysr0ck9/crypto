@@ -33,7 +33,7 @@ class MarketController {
     cmc = async (req: express.Request, res: express.Response) => {
         try {
             const data = await cmc.getTopTenTokens(10, 'USD');
-            res.status(200).json({ success: true, data });
+            res.status(200).json({ success: true, data: [...data.data] });
         } catch (error) {
             res.status(400).json({ success: false, msg: OMC_FAILURE_MSG });
         }

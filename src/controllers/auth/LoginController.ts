@@ -28,7 +28,7 @@ class LoginController {
     };
 
     docs = async (req: express.Request, res: express.Response) => {
-        res.status(200).redirect('https://www.docs.eadsgraphic.com');
+        res.redirect('https://www.docs.eadsgraphic.com', 301);
     };
 }
 
