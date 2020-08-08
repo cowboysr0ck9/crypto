@@ -18,8 +18,7 @@
     "scripts": {
         "tsc": "tsc",
         "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-        "start": "NODE_ENV=production ts-node src/server.ts",
-        "startAlt": "NODE_ENV=production tsc && node ./build/app.js"
+        "start": "NODE_ENV=production node build/server.js"
     },
     "dependencies": {
         "@types/jsonwebtoken": "^8.3.2",

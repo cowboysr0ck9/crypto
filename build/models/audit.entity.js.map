@@ -1,0 +1,1 @@
+{"version":3,"file":"audit.entity.js","sourceRoot":"","sources":["../../src/models/audit.entity.ts"],"names":[],"mappings":";;;AAAA,qCAAyC;AAKzC,IAAM,KAAK,GAAX,MAAM,KAAK;CAYV,CAAA;AAVG;IADC,gBAAM,EAAE;sCACU,IAAI;wCAAC;AAGxB;IADC,gBAAM,EAAE;;wCACiB;AAG1B;IADC,gBAAM,EAAE;sCACU,IAAI;wCAAC;AAGxB;IADC,gBAAM,EAAE;;wCACiB;AAXxB,KAAK;IADV,gBAAM,EAAE;GACH,KAAK,CAYV;AAED,kBAAe,KAAK,CAAC"}
