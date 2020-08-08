@@ -5,8 +5,9 @@ class LoginController {
     public router = express.Router();
 
     constructor() {
-        const { path, router, login, check } = this;
+        const { path, router, login, check, docs } = this;
         router.get(`${path}`, login);
+        router.get(`${path}/docs`, docs);
         router.get(`${path}/check/:id`, check);
     }
 
@@ -24,6 +25,10 @@ class LoginController {
         } catch (error) {
             res.status(400).json({ success: false, msg: LOGIN_FAILURE_MSG });
         }
+    };
+
+    docs = async (req: express.Request, res: express.Response) => {
+        res.status(200).redirect('https://www.docs.eadsgraphic.com');
     };
 }
 
